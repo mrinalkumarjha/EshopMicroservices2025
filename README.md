@@ -11,4 +11,7 @@ automatically pull image and congigure image as per our configuration. it will i
 
 # docker commnnd 
 
-docker compose  -f "C:\Mrinal\Projects\EshopMicroservices2025\src\docker-compose.yml" -f "C:\Mrinal\Projects\EshopMicroservices2025\src\docker-compose.override.yml" -p dockercompose12704217255425201877 --ansi never up -d --build --remove-orphans
+run this command from source dir where yml file is available.
+docker-compose -f docker-compose.yml -f docker-compose.override.yml up --build
+
+
