@@ -1,3 +1,4 @@
+using BuildingBlocks.Behaviours;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,8 +14,16 @@ builder.Services.AddSwaggerGen(options =>
         Version = "v1"
     });
 });
+
+var assembly = typeof(Program).Assembly;
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(assembly);
+    cfg.AddOpenBehavior(typeof(ValidationBehaviour<,>));
+}
+);
+builder.Services.AddValidatorsFromAssembly(assembly);
 builder.Services.AddCarter();
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.AddMarten(options =>
 {
     options.Connection(builder.Configuration.GetConnectionString("Database")!);
